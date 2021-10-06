@@ -1,36 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using BooksAPI.DTOs;
 using BookService.Models;
+using BookService.Services;
 
 namespace BookService.Controllers
 {
     public class BooksController : ApiController
     {
-        private BookServiceContext db = new BookServiceContext();
+        private readonly IBookService _bookService;
+
+        public BooksController(IBookService bookService)
+        {
+            _bookService = bookService;
+        }
 
         // GET: api/Books
         public IQueryable<BookResponseDto> GetBooks()
         {
-            return db.Books.Select(b => new BookResponseDto { Title = b.Title, Genre = b.Genre, Author = b.Author.Name });
+            return _bookService.GetBooks();
         }
 
         // GET: api/Books/5
         [ResponseType(typeof(BookResponseDto))]
         public async Task<IHttpActionResult> GetBook(int id)
         {
-            BookResponseDto book = await db.Books.Include(b => b.Author)
-                .Where(b => b.BookId == id)
-                .Select(b => new BookResponseDto { Title = b.Title, Genre = b.Genre, Author = b.Author.Name })
-                .FirstOrDefaultAsync();
+            var book = await _bookService.GetBook(id);
+           
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(book);
+        }
+
+        // GET: api/Books/5
+        [Route("api/books/{id}/details")]
+        [ResponseType(typeof(BookDetailResponseDto))]
+        public async Task<IHttpActionResult> GetBookDetails(int id)
+        {
+            var book = await _bookService.GetBookDetails(id);
 
             if (book == null)
             {
@@ -49,21 +64,8 @@ namespace BookService.Controllers
                 return BadRequest(ModelState);
             }
 
-            Book book = db.Books.Find(id);
+            await _bookService.UpdateBook(id, bookDto);
 
-            if (book == null) 
-            {
-                return StatusCode(HttpStatusCode.NotFound);
-            }
-
-            book.Title = bookDto.Title;
-            book.Description = bookDto.Description;
-            book.Genre = bookDto.Genre;
-            book.Price = bookDto.Price;
-            book.PublishDate = bookDto.PublishDate;
-            //todo: add author
-            await db.SaveChangesAsync();
-           
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -76,56 +78,19 @@ namespace BookService.Controllers
                 return BadRequest(ModelState);
             }
 
-            Book book = new Book { Title = bookRequestDto.Title,
-                Description = bookRequestDto.Description,
-                Genre = bookRequestDto.Genre,
-                Price = bookRequestDto.Price,
-                PublishDate = bookRequestDto.PublishDate,
-                Author = new Author { Name = bookRequestDto.AuthorName }
-            };
-
-            db.Books.Add(book);
-            await db.SaveChangesAsync();
-
-            BookResponseDto bookResponseDto = new BookResponseDto
-            {
-                Title = book.Title,
-                Author = book.Author.Name,
-                Genre = book.Genre
-            };
-
+            var bookResponseDto = await _bookService.AddBook(bookRequestDto);
+            
             //return with location header
-            return CreatedAtRoute("DefaultApi", new { id = book.BookId }, bookResponseDto);
+            return CreatedAtRoute("DefaultApi", new { id = bookResponseDto.BookId }, bookResponseDto);
         }
 
         // DELETE: api/Books/5
-
         public async Task<IHttpActionResult> DeleteBook(int id)
         {
-            Book book = await db.Books.FindAsync(id);
-            if (book == null)
-            {
-                return NotFound();
-            }
-
-            db.Books.Remove(book);
-            await db.SaveChangesAsync();
+            await _bookService.DeleteBook(id);
 
             return Ok();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool BookExists(int id)
-        {
-            return db.Books.Count(e => e.BookId == id) > 0;
-        }
     }
 }

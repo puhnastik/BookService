@@ -71,3 +71,7 @@ C:\dev\github\BookService\BookService\obj\Debug\BookService.pdb
 C:\dev\github\BookService\BookService\obj\Debug\BookService.Migrations.Initial.resources
 C:\dev\github\BookService\BookService\obj\Debug\BookService.csproj.GenerateResource.cache
 C:\dev\github\BookService\BookService\obj\Debug\BookService.csproj.AssemblyReference.cache
+C:\dev\github\BookService\BookService\bin\Castle.Core.dll
+C:\dev\github\BookService\BookService\bin\Castle.Windsor.dll
+C:\dev\github\BookService\BookService\bin\Castle.Core.xml
+C:\dev\github\BookService\BookService\bin\Castle.Windsor.xml
