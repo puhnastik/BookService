@@ -1,11 +1,8 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using BooksAPI.DTOs;
 using BookService.Models;
 using BookService.Services;
 
@@ -31,7 +28,7 @@ namespace BookService.Controllers
         public async Task<IHttpActionResult> GetBook(int id)
         {
             var book = await _bookService.GetBook(id);
-           
+
             if (book == null)
             {
                 return NotFound();
@@ -79,7 +76,7 @@ namespace BookService.Controllers
             }
 
             var bookResponseDto = await _bookService.AddBook(bookRequestDto);
-            
+
             //return with location header
             return CreatedAtRoute("DefaultApi", new { id = bookResponseDto.BookId }, bookResponseDto);
         }
@@ -91,6 +88,5 @@ namespace BookService.Controllers
 
             return Ok();
         }
-
     }
 }
