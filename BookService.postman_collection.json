@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "8d4272ee-d061-4bc2-81d5-b0a356cb4706",
+		"name": "BookService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44315/api/books/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44315",
+					"path": [
+						"api",
+						"books",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44315/api/books/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44315",
+					"path": [
+						"api",
+						"books",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Book",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " { \r\n        Title : \"The Sundered Grail\",\r\n        Genre : \"Fantasy\",\r\n        AuthorName : \"Mr Doodle\",\r\n        PublishDate: \"2012-12-31T22:00:00.000Z\",\r\n        Description : \"The two daughters of Maeve battle for control of England.\",\r\n        Price : 10.00\r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44315/api/books",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44315",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44315/api/books/9",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44315",
+					"path": [
+						"api",
+						"books",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Book",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " { \r\n        Title : \"The Updated Title 2\",\r\n        Genre : \"Fantasy\",\r\n        AuthorName : \"Mr Doodle Updated\",\r\n        PublishDate: \"2012-12-31T22:00:00.000Z\",\r\n        Description : \"The two daughters of Maeve battle for control of England.\",\r\n        Price : 11.00\r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44315/api/books/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44315",
+					"path": [
+						"api",
+						"books",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}

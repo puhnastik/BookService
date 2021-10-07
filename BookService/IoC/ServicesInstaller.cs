@@ -10,6 +10,7 @@ namespace BookService.IoC
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<IBookService>().ImplementedBy<Services.BookService>().LifestyleTransient());
+            container.Register(Component.For<IMappingService>().ImplementedBy<MappingService>().LifestyleTransient());
         }
     }
 }

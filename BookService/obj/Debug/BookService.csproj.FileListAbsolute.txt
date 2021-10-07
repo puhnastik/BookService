@@ -75,3 +75,5 @@ C:\dev\github\BookService\BookService\bin\Castle.Core.dll
 C:\dev\github\BookService\BookService\bin\Castle.Windsor.dll
 C:\dev\github\BookService\BookService\bin\Castle.Core.xml
 C:\dev\github\BookService\BookService\bin\Castle.Windsor.xml
+C:\dev\github\BookService\BookService\bin\AutoMapper.dll
+C:\dev\github\BookService\BookService\bin\AutoMapper.xml

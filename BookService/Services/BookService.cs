@@ -10,19 +10,27 @@ namespace BookService.Services
     public class BookService : IBookService
     {
         private readonly BookServiceContext _context;
+        private readonly IMappingService _mappingService;
 
-        public BookService(BookServiceContext context)
+        public BookService(BookServiceContext context, IMappingService mappingService)
         {
             _context = context;
+            _mappingService = mappingService;
         }
 
         public async Task<BookResponseDto> GetBook(int id)
         {
-            BookResponseDto book = await _context.Books.Include(b => b.Author)
+            //     BookResponseDto book = await _context.Books.Include(b => b.Author)
+            //         .Where(b => b.BookId == id)
+            //         .Select(b => new BookResponseDto { Title = b.Title, Genre = b.Genre, Author = b.Author.Name, BookId = b.BookId})
+            // .FirstOrDefaultAsync();
+            Book book = await _context.Books.Include(b => b.Author)
                 .Where(b => b.BookId == id)
-                .Select(b => new BookResponseDto { Title = b.Title, Genre = b.Genre, Author = b.Author.Name, BookId = b.BookId})
                 .FirstOrDefaultAsync();
-            return book;
+
+            BookResponseDto bookResponseDto = _mappingService.Map(book);
+            
+            return bookResponseDto;
         }
 
         public IQueryable<BookResponseDto> GetBooks()

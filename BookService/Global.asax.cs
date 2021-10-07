@@ -5,7 +5,9 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using System.Web.Routing;
+using AutoMapper;
 using BookService.IoC;
+using BookService.TypeConverters;
 using Castle.Windsor;
 
 namespace BookService
@@ -20,9 +22,11 @@ namespace BookService
             var controllersInstaller = new ConrollersInstaller();
             var servicesInstaller = new ServicesInstaller();
             var repositoriesInstaller = new RepositoriesInstaller();
+            var automapperInstaller = new AutoMapperInstaller();
             _container.Install(servicesInstaller);
             _container.Install(controllersInstaller);
             _container.Install(repositoriesInstaller);
+            _container.Install(automapperInstaller);
         }
 
         protected void Application_Start()
