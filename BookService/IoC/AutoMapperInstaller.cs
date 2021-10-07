@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using AutoMapper;
 using BookService.TypeConverters;
 using Castle.MicroKernel.Registration;
@@ -34,8 +31,12 @@ namespace BookService.IoC
                     new Mapper(kernel.Resolve<IConfigurationProvider>(), kernel.Resolve)));
 
             //Custom type converters
+            container.Register(Component.For<IBookRequestDtoTypeConverter>()
+                .ImplementedBy<BookRequestDtoTypeConverter>());
             container.Register(Component.For<IBookResponseDtoTypeConverter>()
                 .ImplementedBy<BookResponseDtoTypeConverter>());
+            container.Register(Component.For<IBookDetailsResponseDtoTypeConverter>()
+                .ImplementedBy<BookDetailsResponseDtoTypeConverter>());
         }
     }
 }

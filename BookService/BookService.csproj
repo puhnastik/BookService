@@ -107,7 +107,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IoC\AutoMapperInstaller.cs" />
+    <Compile Include="Mappers\BookDetailsResponseDtoTypeConverter.cs" />
     <Compile Include="IoC\ConrollersInstaller.cs" />
+    <Compile Include="Mappers\IBookDetailsResponseDtoTypeConverter.cs" />
     <Compile Include="IoC\RepositoriesInstaller.cs" />
     <Compile Include="IoC\ServicesInstaller.cs" />
     <Compile Include="IoC\WindsorCompositionRoot.cs" />
@@ -128,9 +130,11 @@
     <Compile Include="Services\IBookService.cs" />
     <Compile Include="Services\IMappingService.cs" />
     <Compile Include="Services\MappingService.cs" />
-    <Compile Include="TypeConverters\AutoMapperProfile.cs" />
-    <Compile Include="TypeConverters\BookResponseDtoTypeConverter.cs" />
-    <Compile Include="TypeConverters\IBookResponseDtoTypeConverter.cs" />
+    <Compile Include="Mappers\AutoMapperProfile.cs" />
+    <Compile Include="Mappers\BookRequestDtoTypeConverter.cs" />
+    <Compile Include="Mappers\BookResponseDtoTypeConverter.cs" />
+    <Compile Include="Mappers\IBookRequestDtoTypeConverter.cs" />
+    <Compile Include="Mappers\IBookResponseDtoTypeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

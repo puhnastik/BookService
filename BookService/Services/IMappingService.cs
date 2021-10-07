@@ -9,6 +9,11 @@ namespace BookService.Services
 {
     public interface IMappingService
     {
+        AutoMapper.IConfigurationProvider GetConfiguration();
         BookResponseDto Map(Book book);
+        Book Map(BookRequestDto book);
+        BookDetailResponseDto MapToBookDetailResponseDto(Book book);
     }
+
+    
 }
