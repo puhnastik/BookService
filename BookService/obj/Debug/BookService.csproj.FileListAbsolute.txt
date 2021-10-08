@@ -77,3 +77,12 @@ C:\dev\github\BookService\BookService\bin\Castle.Core.xml
 C:\dev\github\BookService\BookService\bin\Castle.Windsor.xml
 C:\dev\github\BookService\BookService\bin\AutoMapper.dll
 C:\dev\github\BookService\BookService\bin\AutoMapper.xml
+C:\dev\github\BookService\BookService\bin\Castle.Facilities.Logging.dll
+C:\dev\github\BookService\BookService\bin\Castle.Services.Logging.NLogIntegration.dll
+C:\dev\github\BookService\BookService\bin\NLog.dll
+C:\dev\github\BookService\BookService\bin\Castle.Facilities.Logging.xml
+C:\dev\github\BookService\BookService\bin\Castle.Services.Logging.NLogIntegration.xml
+C:\dev\github\BookService\BookService\bin\NLog.xml
+C:\dev\github\BookService\BookService\bin\Castle.Facilities.AspNet.SystemWeb.dll
+C:\dev\github\BookService\BookService\bin\Microsoft.Web.Infrastructure.dll
+C:\dev\github\BookService\BookService\bin\Castle.Facilities.AspNet.SystemWeb.xml

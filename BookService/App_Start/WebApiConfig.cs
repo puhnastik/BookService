@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Castle.Core.Logging;
 
 namespace BookService
 {
@@ -21,7 +22,8 @@ namespace BookService
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Filters.Add(new GlobalExceptionFilter());
+            var logger = (ILogger)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ILogger));
+            config.Filters.Add(new UnhandledExceptionFilter(logger));
         }
     }
 }

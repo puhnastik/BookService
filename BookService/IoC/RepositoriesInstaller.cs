@@ -9,7 +9,7 @@ namespace BookService.IoC
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<BookServiceContext>().LifestyleTransient());
+            container.Register(Component.For<BookServiceContext>().LifestylePerWebRequest());
         }
     }
 }

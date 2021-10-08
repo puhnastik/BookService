@@ -1,15 +1,20 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Net;
 using System.Web.Http;
 using AutoMapper.QueryableExtensions;
 using BookService.Models;
+using Castle.Core.Logging;
+
 
 namespace BookService.Services
 {
     public class BookService : IBookService
     {
+        public ILogger Logger { get; set; }
+
         private readonly BookServiceContext _context;
         private readonly IMappingService _mappingService;
 
@@ -53,6 +58,7 @@ namespace BookService.Services
         {
             var book = _mappingService.Map(bookRequestDto);
 
+            Logger.Debug("Adding new book");
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
 
