@@ -37,7 +37,7 @@ namespace BookService.Controllers
             return Ok(book);
         }
 
-        // GET: api/Books/5
+        // GET: api/Books/5/details
         [Route("api/books/{id}/details")]
         [ResponseType(typeof(BookDetailResponseDto))]
         public async Task<IHttpActionResult> GetBookDetails(int id)
