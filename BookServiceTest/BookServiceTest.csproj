@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="AutoDomainDataAttribute.cs" />
     <Compile Include="Controllers\BooksControllerTests.cs" />
+    <Compile Include="MoqDataAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BookServiceTest.cs" />
   </ItemGroup>

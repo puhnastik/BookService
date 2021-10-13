@@ -20,5 +20,10 @@ namespace BookService.TypeConverters
         {
             return _mapper.Map<Book>(book);
         }
+
+        public Book ToBook(BookRequestDto bookRequestDto, Book book)
+        {
+            return _mapper.Map<BookRequestDto, Book>(bookRequestDto, book);
+        }
     }
 }

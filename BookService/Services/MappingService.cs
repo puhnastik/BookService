@@ -41,6 +41,11 @@ namespace BookService.Services
             return _bookRequestDtoTypeConverter.ToBook(book);
         }
 
+        public Book Map(BookRequestDto bookRequestDto, Book book)
+        {
+            return _bookRequestDtoTypeConverter.ToBook(bookRequestDto, book);
+        }
+
         public BookDetailResponseDto MapToBookDetailResponseDto(Book book)
         {
             return _bookDetailsResponseDtoTypeConverter.ToBookDetailsResponseDto(book);

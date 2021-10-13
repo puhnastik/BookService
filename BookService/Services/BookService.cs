@@ -4,7 +4,9 @@ using System.Data.Entity;
 using System.Net;
 using System.Web.Http;
 using AutoMapper.QueryableExtensions;
+using BookService.Exceptions;
 using BookService.Models;
+using BookService.Repositories;
 using Castle.Core.Logging;
 
 
@@ -16,19 +18,19 @@ namespace BookService.Services
 
         private readonly BookServiceContext _context;
         private readonly IMappingService _mappingService;
+        private readonly IBookRepository _repository;
 
-        public BookService(BookServiceContext context, IMappingService mappingService)
+        public BookService(IBookRepository repository, IMappingService mappingService, BookServiceContext context)
         {
             _context = context;
+            _repository = repository;
             _mappingService = mappingService;
         }
 
         public async Task<BookResponseDto> GetBook(int id)
         {
-            Book book = await _context.Books.Include(b => b.Author)
-                .Where(b => b.BookId == id)
-                .FirstOrDefaultAsync();
-
+            var book = await _repository.GetBook(id);
+            
             BookResponseDto bookResponseDto = _mappingService.Map(book);
             
             return bookResponseDto;
@@ -36,21 +38,21 @@ namespace BookService.Services
 
         public IQueryable<BookResponseDto> GetBooks()
         {
-            return  _context.Books.ProjectTo<BookResponseDto>(_mappingService.GetConfiguration());
+            var books = _repository.GetBooks();
+            return books.ProjectTo<BookResponseDto>(_mappingService.GetConfiguration());
         }
 
         public async Task UpdateBook(int id, BookRequestDto bookDto)
         {
-            Book book = await _context.Books.Include(b => b.Author).SingleOrDefaultAsync(b => b.BookId == id);
+            var book = await _repository.GetBook(id);
 
             if (book == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new BookNotFoundException(id);
             }
 
-            book = _mappingService.Map(bookDto);
-
-            await _context.SaveChangesAsync();
+            book = _mappingService.Map(bookDto, book);
+            await _repository.UpdateBook(book);
         }
 
         public async Task<BookResponseDto> AddBook(BookRequestDto bookRequestDto)
@@ -58,8 +60,7 @@ namespace BookService.Services
             var book = _mappingService.Map(bookRequestDto);
 
             Logger.Debug("Adding new book");
-            _context.Books.Add(book);
-            await _context.SaveChangesAsync();
+            await _repository.InsertBook(book);
 
             var bookResponseDto = _mappingService.Map(book);
 
@@ -68,21 +69,12 @@ namespace BookService.Services
 
         public async Task DeleteBook(int id)
         {
-            Book book = await _context.Books.FindAsync(id);
-            if (book == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-
-            _context.Books.Remove(book);
-            await _context.SaveChangesAsync();
+            await _repository.DeleteBook(id);
         }
 
         public async Task<BookDetailResponseDto> GetBookDetails(int id)
         {
-            var book = await _context.Books.Include(b => b.Author)
-                .Where(b => b.BookId == id)
-                .FirstOrDefaultAsync();
+            var book = await _repository.GetBook(id);
             
             var bookDto = _mappingService.MapToBookDetailResponseDto(book);
             return bookDto;

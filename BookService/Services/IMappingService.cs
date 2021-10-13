@@ -12,6 +12,7 @@ namespace BookService.Services
         AutoMapper.IConfigurationProvider GetConfiguration();
         BookResponseDto Map(Book book);
         Book Map(BookRequestDto book);
+        Book Map(BookRequestDto bookRequestDto, Book book);
         BookDetailResponseDto MapToBookDetailResponseDto(Book book);
     }
 
